@@ -6,13 +6,13 @@
     gather_facts: no
     connection: local
 
-    tasks:
-    - name: Checking NETCONF connectivity
-      wait_for: host={{ inventory_hostname }} port=830  timeout=6
+      tasks:
+      - name: Checking NETCONF connectivity
+        wait_for: host={{ ansible_ssh_host }} port=830 timeout=5
 
-    - name: SAVE AND BACKUP CONFIGS
-      junos_config:
-        backup=yes
-        host={{ inventory_hostname }}
-        username={{ ansible_ssh_user }}
-        password={{ ansible_ssh_pass }}
+      - name: SAVE AND BACKUP CONFIGS
+        junos_config:
+         backup=yes
+         host={{ inventory_hostname }}
+         username={{ ansible_ssh_user }}
+         password={{ ansible_ssh_pass }}
