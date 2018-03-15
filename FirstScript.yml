@@ -1,0 +1,17 @@
+---
+- name: Get Device Facts
+  hosts: Exeter
+  roles:
+  - Juniper.junos
+  connection: local
+  gather_facts: no
+
+  tasks:
+  - name: Checking NETCONF connectivity
+    wait_for: host={{ ansible_ssh_host }} port=830 timeout=5
+
+  - junos_cli:
+     host={{ansible_ssh_host}} user={{ansible_ssh_user}} passwd={{ansible_ssh_pass}}
+     cli="show interfaces terse" 
+     logfile=cli.log
+     dest="{{ ansible_ssh_host }}"
