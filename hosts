@@ -44,7 +44,9 @@
 
 [Topology-1]
 
+Plymouth ansible_ssh_host=10.10.0.50 ansible_ssh_user=bob ansible_ssh_pass=Clouds123
 Exeter ansible_ssh_host=10.10.0.51 ansible_ssh_user=root ansible_ssh_pass=Clouds123
+Bradninch ansible_ssh_host=10.10.0.52 ansible_ssh_user=bob ansible_ssh_pass=Clouds123
 
 [Topology-2]
 
