@@ -13,6 +13,10 @@
   - name: SAVE AND BACKUP CONFIGS
     junos_config:
      backup=yes
+<<<<<<< HEAD
      host={{ ansible_ssh_host }} port=22
+=======
+     host={{ inventory_hostname }}
+>>>>>>> dev
      username={{ ansible_ssh_user }}
      password={{ ansible_ssh_pass }}
