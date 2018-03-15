@@ -1,0 +1,15 @@
+---
+- name: Push Completed Config to Exeter
+  hosts: Exeter
+  roles:
+  - Juniper.junos
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Push Completed  to Exeter
+      junos_install_config:
+        host={{ ansible_ssh_host }}
+        file=/etc/ansible/Exeter-Complete.conf
+        user={{ ansible_ssh_user }}
+        passwd={{ ansible_ssh_pass}}
