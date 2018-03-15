@@ -31,7 +31,7 @@
 # Ex 3: A collection of database servers in the 'dbservers' group
 
 ## [dbservers]
-## 
+##
 ## db01.intranet.mydomain.net
 ## db02.intranet.mydomain.net
 ## 10.25.1.56
@@ -48,3 +48,4 @@ Exeter ansible_ssh_host=10.10.0.51 ansible_ssh_user=root ansible_ssh_pass=Clouds
 
 [Topology-2]
 
+[Topology-3]
