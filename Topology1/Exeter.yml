@@ -1,5 +1,5 @@
 ---
-- name: Get Device Facts
+- name: Push Completed Config to Exeter
   hosts: Exeter
   roles:
   - Juniper.junos
@@ -7,13 +7,9 @@
   gather_facts: no
 
   tasks:
-  - name: Checking NETCONF connectivity
-    wait_for: host={{ ansible_ssh_host }} port=830 timeout=5
-
-  tasks:
-    - name: Push Default to Exeter
+    - name: Push Completed  to Exeter
       junos_install_config:
         host={{ ansible_ssh_host }}
         file=/etc/ansible/EXE.conf
-        user=root
-        passwd=Clouds123
+        user={{ ansible_ssh_user }}
+        passwd={{ ansible_ssh_pass}}
