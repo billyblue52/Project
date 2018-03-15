@@ -45,3 +45,6 @@
 [Topology-1]
 
 Exeter ansible_ssh_host=10.10.0.51 ansible_ssh_user=root ansible_ssh_pass=Clouds123
+
+[Topology-2]
+
