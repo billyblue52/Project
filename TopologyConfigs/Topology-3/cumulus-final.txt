@@ -1,0 +1,30 @@
+net del all
+net add bridge bridge ports eth0,swp1,swp2
+net add bridge bridge vids 10
+net add bridge bridge vlan-aware
+net add interface eth0,swp1 bridge access 10
+net add interface sw2,swp2
+net add interface swp3 ip address 10.10.0.56/24
+net add interface swp3 ip gateway 10.10.0.1
+net add interface swp4 ip address 192.168.122.15/24
+net add loopback lo
+net add vlan 10 ip address 172.16.20.10/24
+net add vlan 10 vlan-id 10
+net add vlan 10 vlan-raw-device bridge
+net add hostname cumulus
+net add routing defaults datacenter
+net add routing service integrated-vtysh-config
+net add routing log syslog informational
+net add routing route 0.0.0.0/0 10.10.0.1
+net add dot1x radius accounting-port 1813
+net add dot1x eap-reauth-period 0
+net add dot1x radius authentication-port 1812
+net add dot1x mab-activation-delay 30
+net add time zone Etc/UTC
+net add time ntp server 0.cumulusnetworks.pool.ntp.org iburst
+net add time ntp server 1.cumulusnetworks.pool.ntp.org iburst
+net add time ntp server 2.cumulusnetworks.pool.ntp.org iburst
+net add time ntp server 3.cumulusnetworks.pool.ntp.org iburst
+net add time ntp source eth0
+net add dns nameserver ipv4 10.20.249.1
+net add snmp-server listening-address localhost

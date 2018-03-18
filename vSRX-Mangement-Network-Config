@@ -1,0 +1,51 @@
+set version 15.1X49-D100.6
+set system host-name Billys-OOB
+set system root-authentication encrypted-password "$5$c6k1K0v2$j7JXQbcDWTeOUda6wSDpH0aEE68kBtY2B1enEOmHld1"
+set system name-server 8.8.8.8
+set system services ssh
+set system services web-management http interface fxp0.0
+set system services web-management http interface ge-0/0/0.0
+set system syslog user * any emergency
+set system syslog file messages any any
+set system syslog file messages authorization info
+set system syslog file interactive-commands interactive-commands any
+set system license autoupdate url https://ae1.juniper.net/junos/key_retrieval
+set security nat source rule-set INSIDE-OUTSIDE from zone Trust
+set security nat source rule-set INSIDE-OUTSIDE to zone Untrust
+set security nat source rule-set INSIDE-OUTSIDE rule INSIDE-OUTSIDE match source-address 0.0.0.0/0
+set security nat source rule-set INSIDE-OUTSIDE rule INSIDE-OUTSIDE match destination-address 0.0.0.0/0
+set security nat source rule-set INSIDE-OUTSIDE rule INSIDE-OUTSIDE then source-nat interface
+set security policies from-zone Trust to-zone Untrust policy permit-all match source-address any
+set security policies from-zone Trust to-zone Untrust policy permit-all match destination-address any
+set security policies from-zone Trust to-zone Untrust policy permit-all match application any
+set security policies from-zone Trust to-zone Untrust policy permit-all then permit
+set security policies from-zone Untrust to-zone Trust policy outbound match source-address any
+set security policies from-zone Untrust to-zone Trust policy outbound match destination-address any
+set security policies from-zone Untrust to-zone Trust policy outbound match application any
+set security policies from-zone Untrust to-zone Trust policy outbound then permit
+set security policies from-zone Trust to-zone Trust policy allow-all match source-address any
+set security policies from-zone Trust to-zone Trust policy allow-all match destination-address any
+set security policies from-zone Trust to-zone Trust policy allow-all match application any
+set security policies from-zone Trust to-zone Trust policy allow-all then permit
+set security policies from-zone Untrust to-zone Untrust policy allow-all match source-address any
+set security policies from-zone Untrust to-zone Untrust policy allow-all match destination-address any
+set security policies from-zone Untrust to-zone Untrust policy allow-all match application any
+set security policies from-zone Untrust to-zone Untrust policy allow-all then permit
+set security zones security-zone Trust host-inbound-traffic system-services all
+set security zones security-zone Trust host-inbound-traffic protocols all
+set security zones security-zone Trust interfaces ge-0/0/1.0
+set security zones security-zone Untrust host-inbound-traffic system-services all
+set security zones security-zone Untrust host-inbound-traffic protocols all
+set security zones security-zone Untrust interfaces ge-0/0/0.0
+set interfaces ge-0/0/0 unit 0 family inet address 192.168.0.161/24
+set interfaces ge-0/0/1 unit 0 family inet address 10.10.0.1/24
+set routing-options static route 0.0.0.0/0 next-hop 192.168.0.1
+set routing-options static route 10.10.0.20/32 next-hop 10.10.0.2
+deactivate routing-options static route 10.10.0.20/32
+set routing-options static route 10.10.0.25/32 next-hop 10.10.0.2
+deactivate routing-options static route 10.10.0.25/32
+set routing-options static route 10.10.0.26/32 next-hop 10.10.0.2
+deactivate routing-options static route 10.10.0.26/32
+set routing-options static route 10.10.0.27/32 next-hop 10.10.0.2
+deactivate routing-options static route 10.10.0.27/32
+

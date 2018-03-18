@@ -1,0 +1,69 @@
+## Last changed: 2018-02-27 10:12:31 UTC
+version 15.1X53-D60.4;
+system {
+    host-name City1;
+    root-authentication {
+        encrypted-password "$5$w1lGUtex$sOzBnxo7nxPCmJlvDvL/hntCClnuAjxeYEio4xXo9b4"; ## SECRET-DATA
+    }
+    login {
+        user wistar {
+            uid 2001;
+            class super-user;
+            authentication {
+                encrypted-password "$5$QqtVOPyl$iBwv1t9MSXBrfZVp.JISfQVUIwdFZrfSOo8zZVWXTW4"; ## SECRET-DATA
+                ssh-rsa "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDgjgNd0Lej/1Rpcc9GEEoVV0RVbNW8TPvUzJzOTNZ76aoe83QZnUI5jXJLLg44j/J/vlUyFKEoPQokpezAUBtIyiglhPC0XN3Yxox82vtQxHItQenc8GAYvo6s8kvbDW0FX4xSfo9p3/nUlGrrCPYGrRCUaji76Xk4TQNW6aUVJYp3ReboZhy+3HO/BoljopMoKZF5OxAWhgJZ/+h+ADeoMw68V+sW/t/10yt84GEQ3TBNtSM5wSUh8u+YoPG13Kz36HsMa7gZbp8AABMSrvUys494IOyeQEJUV96bn1V1vyaVMxv/hI0/ektz56R4rwcIVw3V0NXholEPmBXDhWW3 wistar@dummykey"; ## SECRET-DATA
+            }
+        }
+    }
+    services {
+        ssh {
+            root-login allow;
+        }
+        netconf {
+            ssh;
+        }
+    }
+    syslog {
+        user * {
+            any emergency;
+        }
+        file messages {
+            any notice;
+            authorization info;
+        }
+        file interactive-commands {
+            interactive-commands any;
+        }
+    }
+}
+interfaces {
+    xe-0/0/0 {
+        unit 0;
+    }
+    xe-0/0/1 {
+        unit 0 {
+            family inet {
+                address 10.10.0.55/24;
+            }
+        }
+    }
+    em0 {
+        unit 0 {
+            family inet {
+                address 192.168.122.15/24;
+            }
+        }
+    }
+    em1 {
+        unit 0 {
+            family inet {
+                address 169.254.0.2/24;
+            }
+        }
+    }
+}
+routing-options {
+    static {
+        route 0.0.0.0/0 next-hop 10.10.0.1;
+    }
+}
