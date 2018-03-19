@@ -22,9 +22,19 @@
         ##host: "{{ ansible_ssh_host }}"
         ##passwd: "{{ansible_ssh_pass}}"
         ##user: "{{ ansible_ssh_user }}"
-      register: junos_result 
-      name: "Display interfaces to CLI log file"
+      ##register: junos_result 
+      name: "Show Interfaces"
+    -
+      junos_command:
+        commands: show ospf database
+        wait_for: result[0] contains 2.2.2.2
+        ##display: json
+        ##host: "{{ ansible_ssh_host }}"
+        ##passwd: "{{ansible_ssh_pass}}"
+        ##user: "{{ ansible_ssh_user }}"
+      register: junos_result
+      name: "Check for OSPF"
     - 
       debug: 
-        var: junos_result
-      name: "Print response"
+        var: junos_result.stdout_lines
+      name: "Print OSPF response"
