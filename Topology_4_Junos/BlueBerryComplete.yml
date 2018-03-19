@@ -1,0 +1,15 @@
+---
+- name: Push Completed Config to Exeter
+  hosts: Blueberry
+  roles:
+  - Juniper.junos
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Push Completed  to Blueberry
+      junos_install_config:
+        host={{ ansible_ssh_host }}
+        file=Exeter-Complete.conf
+        user={{ ansible_ssh_user }}
+        passwd={{ ansible_ssh_pass}}
