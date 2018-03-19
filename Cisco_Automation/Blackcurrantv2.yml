@@ -1,0 +1,16 @@
+---
+- name: Push Completed Config to Exeter
+  hosts: BlackCurrant
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Push to BlackCurrant
+      ios_config:
+        lines: 
+          - hostname sillybillyv2
+        provider:
+         host: "{{ ansible_ssh_host }}"
+         username: "{{ ansible_ssh_user }}"
+         password: "{{ ansible_ssh_pass}}"
+         timeout: 10
