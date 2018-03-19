@@ -1,0 +1,16 @@
+---
+- name: Push Completed Config to Exeter
+  hosts: BlackCurrant
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Push to BlackCurrant
+      ios_config:
+        lines: 
+          - hostname sillybilly
+        provider:
+         host: "10.10.0.59"
+         username: "bob"
+         password: "Clouds123"
+         timeout: 10
