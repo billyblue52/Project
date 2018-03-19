@@ -1,0 +1,16 @@
+---
+
+- name: BACKUP CONFIGS OF JUNOS DEVICES
+  hosts: Blueberry
+  roles:
+  - Juniper.junos 
+  connection: local
+  gather_facts: False
+
+  tasks:
+  - name: GET CONFIG
+    junos_get_config: 
+      user: "{{ ansible_ssh_user }}"
+      passwd: "{{ ansible_ssh_pass }}" 
+      host: "{{ ansible_ssh_host }}"
+      dest: "JunosBackups/{{ ansible_ssh_host }}.conf"
