@@ -1,0 +1,16 @@
+--- 
+- 
+  connection: local
+  gather_facts: false
+  hosts: Blueberry
+  name: "Push Completed Config to Blueberry"
+  roles: 
+    - Juniper.junos
+  tasks: 
+    - 
+      junos_install_config: 
+        file: blueberry.conf
+        host: "{{ ansible_ssh_host }}"
+        passwd: "{{ansible_ssh_pass}}"
+        user: "{{ ansible_ssh_user }}"
+      name: "Push to BlueBerry"
