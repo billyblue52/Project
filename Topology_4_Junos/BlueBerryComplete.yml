@@ -1,15 +1,40 @@
----
-- name: Push Completed Config to Exeter
-  hosts: Blueberry
-  roles:
-  - Juniper.junos
+--- 
+- 
   connection: local
-  gather_facts: no
-
-  tasks:
-    - name: Push Completed  to Blueberry
-      junos_install_config:
-        host={{ ansible_ssh_host }}
-        file=blueberry.conf
-        user={{ ansible_ssh_user }}
-        passwd={{ ansible_ssh_pass}}
+  gather_facts: false
+  hosts: Blueberry
+  name: "Push Completed Config to Blueberry"
+  roles: 
+    - Juniper.junos
+  tasks: 
+    - 
+      junos_install_config: 
+        file: blueberry.conf
+        host: "{{ ansible_ssh_host }}"
+        passwd: "{{ansible_ssh_pass}}"
+        user: "{{ ansible_ssh_user }}"
+      name: "Push to BlueBerry"
+    - 
+      junos_command: 
+        commands: show interfaces terse
+        wait_for: result[0] contains 172.16.1.2/24
+        ##display: json
+        ##host: "{{ ansible_ssh_host }}"
+        ##passwd: "{{ansible_ssh_pass}}"
+        ##user: "{{ ansible_ssh_user }}"
+      ##register: junos_result 
+      name: "Show Interfaces"
+    -
+      junos_command:
+        commands: show ospf database
+        wait_for: result[0] contains 2.2.2.2
+        ##display: json
+        ##host: "{{ ansible_ssh_host }}"
+        ##passwd: "{{ansible_ssh_pass}}"
+        ##user: "{{ ansible_ssh_user }}"
+      register: junos_result
+      name: "Check for OSPF"
+    - 
+      debug: 
+        var: junos_result.stdout_lines
+      name: "Print OSPF response"
