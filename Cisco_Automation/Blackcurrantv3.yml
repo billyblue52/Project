@@ -7,11 +7,11 @@
   tasks:
     - name: Push to BlackCurrant
       ios_config:
-        lines: 
+        lines:
           - ip address 172.16.10.5 255.255.255.0
           - no shutdown
         parents: interface GigabitEthernet2
-        lines: 
+        lines:
           - hostname billy
         provider:
          host: "{{ ansible_ssh_host }}"
@@ -19,14 +19,15 @@
          password: "{{ ansible_ssh_pass}}"
          timeout: 10
 
-    - name: Show interfaces 
+    - name: Show interfaces
       ios_command:
-        commands: 
+        commands:
          - show interfaces
         waitfor:
-         - result[0] contains 'GigabitEthernet2'
-        provider:
-         host: "{{ ansible_ssh_host }}"
-         username: "{{ ansible_ssh_user }}"
-         password: "{{ ansible_ssh_pass}}"
+         - result[0] contains 'GigabitEthernet2
+         register: cisco_result
+        ##provider:
+         ##host: "{{ ansible_ssh_host }}"
+         ##username: "{{ ansible_ssh_user }}"
+         ##password: "{{ ansible_ssh_pass}}"
 
