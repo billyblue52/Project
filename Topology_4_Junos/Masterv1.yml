@@ -22,5 +22,9 @@
         ##host: "{{ ansible_ssh_host }}"
         ##passwd: "{{ansible_ssh_pass}}"
         ##user: "{{ ansible_ssh_user }}"
+      register: junos_result 
       name: "Display interfaces to CLI log file"
-
+    - 
+      debug: 
+        var: junos_result
+      name: "Print response"
