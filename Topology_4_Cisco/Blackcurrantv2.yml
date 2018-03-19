@@ -8,9 +8,9 @@
     - name: Push to BlackCurrant
       ios_config:
         lines: 
-          - hostname sillybilly
+          - hostname sillybillyv2
         provider:
-         host: "10.10.0.59"
-         username: "bob"
-         password: "Clouds123"
+         host: "{{ ansible_ssh_host }}"
+         username: "{{ ansible_ssh_user }}"
+         password: "{{ ansible_ssh_pass}}"
          timeout: 10
