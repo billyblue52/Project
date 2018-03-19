@@ -13,3 +13,10 @@
         file=blueberry.conf
         user={{ ansible_ssh_user }}
         passwd={{ ansible_ssh_pass}}
+
+      - name: Display interfaces to CLI log file
+        - junos_cli:
+           host={{ansible_ssh_host}} user={{ansible_ssh_user}} passwd={{ansible_ssh_pass}}
+           cli="show interfaces terse"
+           logfile=cli.log
+           dest="{{ ansible_ssh_host }}"
