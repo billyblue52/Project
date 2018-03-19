@@ -10,6 +10,6 @@
     - name: Push Completed  to Blueberry
       junos_install_config:
         host={{ ansible_ssh_host }}
-        file=Exeter-Complete.conf
+        file=blueberry.conf
         user={{ ansible_ssh_user }}
         passwd={{ ansible_ssh_pass}}
