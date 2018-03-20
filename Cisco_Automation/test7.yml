@@ -1,0 +1,27 @@
+--- 
+- 
+  connection: local
+  gather_facts: false
+  hosts: BlackCurrant
+  name: "Push Completed Config t Blackcurrant"
+  tasks: 
+    - 
+      ios_config: 
+        lines: 
+          - hostname BlackCurrant
+        lines:
+          - description AREA1
+          - ip address 172.16.10.5 255.255.255.0
+          - no shutdown
+        parents: interface GigabitEthernet2
+        lines: 
+          - "router-id 3.3.3.3"
+          - "network 172.16.1.0 0.0.0.255 area 0"
+          - "network 172.16.10.0 0.0.0.255 area 1"
+        parents: "router ospf 1"
+        provider: 
+          host: "{{ ansible_ssh_host }}"
+          password: "{{ ansible_ssh_pass}}"
+          timeout: 20
+          username: "{{ ansible_ssh_user }}"
+      name: "Push to BlackCurrant"

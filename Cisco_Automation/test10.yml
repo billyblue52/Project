@@ -1,0 +1,33 @@
+---
+- name: Push Completed Config t Blackcurrant
+  hosts: BlackCurrant
+  connection: local
+  gather_facts: no
+
+  tasks:
+    - name: Push to BlackCurrant
+      ios_config:
+        lines:
+          - hostname Black
+        lines: 
+          - ip address 172.16.10.5 255.255.255.0
+          - no shutdown
+        parents: interface GigabitEthernet2
+        lines: 
+          - hostname billy
+        provider:
+         host: "{{ ansible_ssh_host }}"
+         username: "{{ ansible_ssh_user }}"
+         password: "{{ ansible_ssh_pass}}"
+         timeout: 10
+
+    - name: Show interfaces 
+      ios_command:
+        commands: 
+         - show interfaces
+        waitfor:
+         - result[0] contains 'GigabitEthernet2'
+        provider:
+         host: "{{ ansible_ssh_host }}"
+         username: "{{ ansible_ssh_user }}"
+         password: "{{ ansible_ssh_pass}}"
