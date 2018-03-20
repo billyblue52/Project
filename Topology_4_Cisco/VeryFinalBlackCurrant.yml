@@ -1,0 +1,83 @@
+---
+-
+  connection: local
+  gather_facts: false
+  hosts: BlackCurrant
+  tasks:
+    -
+      ios_config:
+        host: "{{ ansible_ssh_host }}"
+        lines:
+        - hostname BlackCurrant
+        password: "{{ ansible_ssh_pass }}"
+        username: "{{ ansible_ssh_user }}"
+      name: "set hostname"
+    -
+      ios_config:
+        host: "{{ ansible_ssh_host }}"
+        lines:
+        - description AREA1
+        - ip address 172.16.10.5 255.255.255.0
+        - no shutdown
+        parents: interface GigabitEthernet2
+        password: "{{ ansible_ssh_pass }}"
+        username: "{{ ansible_ssh_user }}"
+      name: "configure Gig2 settings"
+    -
+      ios_config:
+        host: "{{ ansible_ssh_host }}"
+        lines:
+          - description AREA0
+          - ip address 172.16.1.3 255.255.255.0
+          - ip ospf priority 100
+          - no shutdown
+        parents: interface GigabitEthernet3
+        password: "{{ ansible_ssh_pass }}"
+        username: "{{ ansible_ssh_user }}"
+      name: "configure Gig3 Settings"
+    -
+      ios_config:
+        host: "{{ ansible_ssh_host }}"
+        lines:
+          - router-id 3.3.3.3
+          - network 172.16.1.0 0.0.0.255 area 0
+          - network 172.16.10.0 0.0.0.255 area 1
+          - no shutdown
+        parents: router ospf 1
+        password: "{{ ansible_ssh_pass }}"
+        username: "{{ ansible_ssh_user }}"
+      name: "configure OSPF"
+    -
+      ios_command:
+        commands:
+          - write memory
+        host: "{{ ansible_ssh_host }}"
+        password: "{{ ansible_ssh_pass }}"
+        username: "{{ ansible_ssh_user }}"
+      name: "write mem"
+    -
+      ios_command:
+        commands:
+          - show interfaces
+        waitfor:
+          - result[0] contains '172.16.10.5'
+        host: "{{ ansible_ssh_host }}"
+        password: "{{ ansible_ssh_pass }}"
+        username: "{{ ansible_ssh_user }}"
+      name: "show interfaces"
+    -
+      ios_command:
+        commands:
+          - "show ip ospf database"
+        waitfor:
+         - result[0] contains '3.3.3.3'
+        host: "{{ ansible_ssh_host }}"
+        password: "{{ ansible_ssh_pass }}"
+        username: "{{ ansible_ssh_user }}"
+      name: "show OSPF database"
+      register: cisco_result
+    -
+      debug:
+        var: cisco_result.stdout_lines
+      name: "Print OSPF response"
+
