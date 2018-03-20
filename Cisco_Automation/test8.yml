@@ -1,0 +1,56 @@
+--- 
+- 
+  connection: local
+  gather_facts: false
+  hosts: BlackCurrant
+  name: "Push Completed Config t Blackcurrant"
+  tasks: 
+    - 
+      ios_config: 
+        lines: 
+          - hostname BlackCurrant
+        lines:
+          - description AREA1
+          - ip address 172.16.10.5 255.255.255.0
+          - no shutdown
+        parents: interface GigabitEthernet2
+        lines:
+          - description AREA0
+          - ip address 172.16.10.5 255.255.255.0
+          - ip ospf priority 100
+          - no shutdown
+        parents: interface GigabitEthernet3
+        lines:
+          - ip address 192.168.122.17 255.255.255.0
+          - no shutdown
+        parents: interface GigabitEthernet4
+        lines: 
+          - router-id 3.3.3.3
+          - network 172.16.1.0 0.0.0.255 area 0
+          - network 172.16.10.0 0.0.0.255 area 1
+        parents: router ospf 1
+        provider: 
+          host: "{{ ansible_ssh_host }}"
+          password: "{{ ansible_ssh_pass}}"
+          timeout: 20
+          username: "{{ ansible_ssh_user }}"
+        name: "Push to BlackCurrant"
+    -
+      ios_command:
+       commands:
+         - show interfaces
+       waitfor:
+         - result[0] contains 172.16.10.5
+      name: "Show interfaces"
+    -
+      ios_command:
+       commands:
+         - sh run | sec router ospf
+       waitfor:
+         - result[0] contains router ospf 1
+      name: "Show interfaces"
+      ##register: cisco_result
+   ## -
+     ## debug:
+       ##var: cisco_result.stdout_lines
+     ## name: "Print OSPF response"
