@@ -1,0 +1,39 @@
+---
+-
+  connection: local
+  gather_facts: false
+  hosts: BlackCurrant
+  tasks:
+    - name: "Push Hostname"
+      ios_config:
+        lines:
+          - hostname BlackCurrant
+    - name: "Push GigabitEthernet2"
+        lines:
+          - description AREA1
+          - ip address 172.16.10.5 255.255.255.0
+          - no shutdown
+        parents: interface GigabitEthernet2
+    - name: "Push GigabitEthernet3"
+        lines:
+          - description AREA0
+          - ip address 172.16.10.5 255.255.255.0
+          - ip ospf priority 100
+          - no shutdown
+        parents: interface GigabitEthernet3
+    - name: "Push GigabitEthernet4 "
+        lines:
+          - ip address 192.168.122.17 255.255.255.0
+          - no shutdown
+        parents: interface GigabitEthernet4
+    - name: "Push OSPF "
+        lines:
+          - router-id 3.3.3.3
+          - network 172.16.1.0 0.0.0.255 area 0
+          - network 172.16.10.0 0.0.0.255 area 1
+        parents: "router ospf 1"
+        provider:
+          host: "{{ ansible_ssh_host }}"
+          password: "{{ ansible_ssh_pass}}"
+          timeout: 35
+          username: "{{ ansible_ssh_user }}"

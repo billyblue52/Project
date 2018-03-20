@@ -1,11 +1,10 @@
 GNU nano 2.5.3                      File: BlackCurrantFinal.yml
-
 ---
--
-connection: local
-gather_facts: false
-hosts: BlackCurrant
-name: "Push Completed Config to Blackcurrant"
+ -
+    connection: local
+    gather_facts: false
+    hosts: BlackCurrant
+    name: "Push Completed Config to Blackcurrant"
 tasks:
   -
     ios_config:
@@ -59,6 +58,6 @@ tasks:
     name: "Print OSPF response"
   -
     ios_command:
-       commands:
-         - write memory
+      commands:
+        - write memory
     name: SAVE CONFIG
