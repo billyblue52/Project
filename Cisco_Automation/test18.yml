@@ -34,5 +34,5 @@
         host: "{{ ansible_ssh_host }}"
         password: "{{ ansible_ssh_pass }}"
         username: "{{ ansible_ssh_user }}"
-      name: "SAVE CONFIG"
+      name: "write mem"
 

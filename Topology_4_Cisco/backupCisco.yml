@@ -10,7 +10,7 @@
          - show run   
      register: config
 
-   - name: save output to /etc/ansible/backups 
+   - name: save output to /CiscoConfigs/ 
      copy: 
        content: "{{ config.stdout[0] }}"
        dest: "CiscoConfigs/show_run_{{ inventory_hostname }}.txt"
