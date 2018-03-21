@@ -1,0 +1,31 @@
+---
+-
+  connection: local
+  gather_facts: false
+  hosts: Orange
+  name: "Push Completed Config to Blueberry"
+  tasks:
+    -
+      name: "backup current configuration and load completed"
+      vyos_config:
+        backup: true
+        src: vyos.cfg
+    -
+      vyos_command:
+        commands:
+          show interfaces
+          wait_for:
+               - "result[0] contains '172.16.51.1'"
+      name: "Show Interfaces, check for 172.16.51.1"
+    -
+      vyos_command:
+        commands:
+          - show ip ospf database
+        wait_for:
+         - "result[0] contains '1.1.1.1'"
+      name: "Check OSPF database"
+      register: VyOS_result
+    -
+      debug:
+        var: VyOS_result.stdout_lines
+      name: "Print OSPF response"
