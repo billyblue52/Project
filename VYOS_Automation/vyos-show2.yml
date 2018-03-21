@@ -3,7 +3,7 @@
   connection: local
   gather_facts: false
   hosts: Orange
-  name: "Push Completed Config to Blueberry"
+  name: "Push Completed Config to Orange"
   tasks:
     -
       name: "backup current configuration and load completed"
