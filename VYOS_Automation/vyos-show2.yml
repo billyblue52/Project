@@ -13,9 +13,9 @@
     -
       vyos_command:
         commands:
-          show interfaces
-          wait_for:
-               - "result[0] contains '172.16.51.1'"
+          - show interfaces
+        wait_for:
+         - "result[0] contains '172.16.51.1'"
       name: "Show Interfaces, check for 172.16.51.1"
     -
       vyos_command:
