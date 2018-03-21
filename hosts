@@ -54,6 +54,7 @@ Bradninch ansible_ssh_host=10.10.0.52 ansible_ssh_user=bob ansible_ssh_pass=Clou
 
 [Topology-4]
 
+Orange ansible_ssh_host=10.10.0.57 ansible_ssh_user=vyos ansible_ssh_pass=vyos
 Blueberry ansible_ssh_host=10.10.0.58 ansible_ssh_user=root ansible_ssh_pass=Clouds123
 BlackCurrant ansible_ssh_host=10.10.0.59 ansible_ssh_user=bob ansible_ssh_pass=Clouds123
 

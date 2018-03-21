@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 1533 bytes
+Current configuration : 1722 bytes
 !
-! Last configuration change at 19:19:27 UTC Mon Mar 19 2018 by bob
+! Last configuration change at 09:59:39 UTC Tue Mar 20 2018 by bob
 !
 version 16.3
 service timestamps debug datetime msec
@@ -10,7 +10,7 @@ service timestamps log datetime msec
 no platform punt-keepalive disable-kernel-core
 platform console virtual
 !
-hostname billy
+hostname BlackCurrant
 !
 boot-start-marker
 boot-end-marker
@@ -100,14 +100,16 @@ interface GigabitEthernet1
  no mop sysid
 !
 interface GigabitEthernet2
+ description AREA1
  ip address 172.16.10.5 255.255.255.0
  negotiation auto
  no mop enabled
  no mop sysid
 !
 interface GigabitEthernet3
- no ip address
- shutdown
+ description AREA0
+ ip address 172.16.1.3 255.255.255.0
+ ip ospf priority 100
  negotiation auto
  no mop enabled
  no mop sysid
@@ -118,6 +120,11 @@ interface GigabitEthernet4
  negotiation auto
  no mop enabled
  no mop sysid
+!
+router ospf 1
+ router-id 3.3.3.3
+ network 172.16.1.0 0.0.0.255 area 0
+ network 172.16.10.0 0.0.0.255 area 1
 !
 !
 virtual-service csr_mgmt
