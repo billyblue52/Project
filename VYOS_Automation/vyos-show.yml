@@ -1,0 +1,12 @@
+---
+-
+  connection: local
+  gather_facts: false
+  hosts: Orange
+  name: "Push Completed Config to Blueberry"
+  tasks:
+    -
+      name: "backup and the load file"
+      vyos_config:
+        backup: true
+        src: vyos.cfg
