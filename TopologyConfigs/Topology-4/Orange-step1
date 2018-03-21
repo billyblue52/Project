@@ -1,22 +1,22 @@
 interfaces {
     ethernet eth2 {
-        address 172.16.51.1/24
-        duplex auto
-        hw-id 52:54:00:00:38:0d
-        smp_affinity auto
-        speed auto
-    }
-    ethernet eth3 {
         address 192.168.122.6/24
         duplex auto
         hw-id 52:54:00:00:38:10
         smp_affinity auto
         speed auto
     }
-    ethernet eth4 {
+    ethernet eth3 {
         address 10.10.0.57/24
         duplex auto
         hw-id 52:54:00:00:38:05
+        smp_affinity auto
+        speed auto
+    }
+    ethernet eth4 {
+        address 172.16.51.1/24
+        duplex auto
+        hw-id 52:54:00:00:38:0d
         smp_affinity auto
         speed auto
     }
@@ -27,8 +27,6 @@ protocols {
     ospf {
         area 51 {
             area-type {
-                stub {
-                }
             }
             network 172.16.51.0/24
         }
@@ -36,6 +34,11 @@ protocols {
             abr-type cisco
             router-id 1.1.1.1
         }
+    }
+}
+service {
+    ssh {
+        port 22
     }
 }
 system {
