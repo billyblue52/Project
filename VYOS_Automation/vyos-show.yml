@@ -11,7 +11,7 @@
           - show version
           - show hardware cpu
         wait_for:
-         - "result[0] contains 'VyOS 1.1.7'"
+         - "result[0] contains 'VyOS 1.1.8'"
       name: "run multiple commands and check if version output contains specific version string"
       register: VyOS_result
     -
