@@ -6,7 +6,15 @@
   name: "Push Completed Config to Blueberry"
   tasks:
     -
-      name: "backup and the load file"
-      vyos_config:
-        backup: true
-        src: vyos.cfg
+      vyos_command:
+        commands:
+          - show version
+          - show hardware cpu
+        wait_for:
+         - "result[0] contains 'VyOS 1.1.7'"
+      name: "run multiple commands and check if version output contains specific version string"
+      register: VyOS_result
+    -
+      debug:
+        var: VyOS_result.stdout_lines
+      name: "Print OSPF response"
