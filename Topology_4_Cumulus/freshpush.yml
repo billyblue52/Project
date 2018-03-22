@@ -1,0 +1,26 @@
+---
+- hosts: Banana
+
+  vars:
+    ansible_become_pass: "Clouds123"
+
+  tasks:
+    - name: run the net commands
+      nclu:
+        commands:
+          - '{{item[4:]}}'
+      with_lines: cat save_nclu/{{inventory_hostname}}_nclu
+      # with_lines loops through each line in the file, and item[4:] strips off the 'net' in front since its redundant with nclu ansible module
+
+    - name: commit the changes
+      nclu:
+        commit: yes
+      # we commit in a separate stanza so we don't have to "per line" in the stanza above
+    - name: Check configuration is applied correctly
+      command: net show ospf database
+      register: OSPf_result
+    -
+      debug:
+        var: OSPf_result.stdout_lines
+      name: "Print OSPF response"
+
