@@ -1,0 +1,371 @@
+/etc/network/interfaces
+=======================
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*.intf
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto eth0
+iface eth0
+    address 10.10.0.60/24
+
+auto swp1
+iface swp1
+    address 172.16.10.6/24
+
+auto swp2
+iface swp2
+    address 192.168.122.21/24
+
+
+/etc/hostname
+=============
+Banana
+
+
+/etc/hosts
+==========
+127.0.0.1	localhost
+::1		localhost ip6-localhost ip6-loopback
+ff02::1		ip6-allnodes
+ff02::2		ip6-allrouters
+
+127.0.1.1	Banana
+
+
+/etc/dhcp/dhclient-exit-hooks.d/dhcp-sethostname
+================================================
+# This script sets the machine hostname to the hostname sent from the DHCP server.
+# If you want to enable this script, change SETHOSTNAME to "yes"
+# Copyright 2013, 2015, 2017, Cumulus Networks, Inc.  All rights reserved.
+
+SETHOSTNAME="no"
+
+if [ $SETHOSTNAME = "yes" ] && [ ! -z $new_host_name ]
+then
+    hostname $new_host_name
+    sed --in-place -e "/127\.0\.1\.1/s/^.*$/127.0.1.1  $new_host_name/" /etc/hosts
+fi
+
+
+/etc/default/isc-dhcp-relay
+===========================
+# Defaults for isc-dhcp-relay initscript
+# sourced by /etc/init.d/isc-dhcp-relay
+# installed at /etc/default/isc-dhcp-relay by the maintainer scripts
+
+#
+# This is a POSIX shell fragment
+#
+
+# What servers should the DHCP relay forward requests to?
+SERVERS=""
+
+# On what interfaces should the DHCP relay (dhrelay) serve DHCP requests?
+# Always include the interface towards the DHCP server.
+# This variable requires a -i for each interface configured above.
+# This will be used in the actual dhcrelay command
+# For example, "-i eth0 -i eth1"
+INTF_CMD=""
+
+# Additional options that are passed to the DHCP relay daemon?
+OPTIONS=""
+
+
+/etc/default/isc-dhcp-relay6
+============================
+# Defaults for isc-dhcp-relay6 initscript
+# sourced by /etc/init.d/isc-dhcp-relay6
+# installed at /etc/default/isc-dhcp-relay6 by the maintainer scripts
+
+#
+# This is a POSIX shell fragment
+#
+
+# Specify upstream and downstream interfaces
+# For example, "-u eth0 -l swp1"
+INTF_CMD=""
+
+# Additional options that are passed to the DHCP relay daemon?
+OPTIONS=""
+
+
+/etc/default/isc-dhcp-server
+============================
+# Defaults for isc-dhcp-server initscript
+# sourced by /etc/init.d/isc-dhcp-server
+# installed at /etc/default/isc-dhcp-server by the maintainer scripts
+
+#
+# This is a POSIX shell fragment
+#
+
+# Path to dhcpd's config file (default: /etc/dhcp/dhcpd.conf).
+#DHCPD_CONF="-cf /etc/dhcp/dhcpd.conf"
+
+# Path to dhcpd's PID file (default: /var/run/dhcpd.pid).
+#DHCPD_PID="-pf /var/run/dhcpd.pid"
+
+# Additional options to start dhcpd with.
+#	Don't use options -cf or -pf here; use DHCPD_CONF/ DHCPD_PID instead
+#OPTIONS=""
+
+# On what interfaces should the DHCP server (dhcpd) serve DHCP requests?
+#	Separate multiple interfaces with spaces, e.g. "eth0 eth1".
+INTERFACES=""
+
+
+/etc/default/isc-dhcp-server6
+=============================
+# Defaults for isc-dhcp-server6 initscript
+# sourced by /etc/init.d/isc-dhcp-server
+# installed at /etc/default/isc-dhcp-server6 by the maintainer scripts
+
+#
+# This is a POSIX shell fragment
+#
+
+# Path to dhcpd's config file (default: /etc/dhcp/dhcpd6.conf).
+#DHCPD_CONF="-cf /etc/dhcp/dhcpd6.conf"
+
+# Path to dhcpd's PID file (default: /var/run/dhcpd6.pid).
+#DHCPD_PID="-pf /var/run/dhcpd6.pid"
+
+# Additional options to start dhcpd with.
+#	Don't use options -cf or -pf here; use DHCPD_CONF/ DHCPD_PID instead
+#OPTIONS=""
+
+# On what interfaces should the DHCP server (dhcpd) serve DHCP requests?
+#	Separate multiple interfaces with spaces, e.g. "eth0 eth1".
+INTERFACES=""
+
+
+/etc/cumulus/ports.conf
+=======================
+# ports.conf --
+#
+#   configure port speed, aggregation, and subdivision.
+#
+#   The ports in Cumulus VX are not configurable from here.
+#
+
+/etc/frr/daemons
+===================
+zebra=yes
+bgpd=no
+ospfd=yes
+ospf6d=no
+ripd=no
+ripngd=no
+isisd=no
+pimd=no
+ldpd=no
+nhrpd=no
+eigrpd=no
+babeld=no
+
+
+/etc/frr/frr.conf
+=======================
+frr version 3.2+cl3u3
+frr defaults datacenter
+hostname Banana
+username cumulus nopassword
+!
+service integrated-vtysh-config
+!
+log syslog informational
+!
+vrf Default-IP-Routing-Table
+!
+router ospf
+ ospf router-id 4.4.4.4
+ network 172.16.10.0/24 area 1
+!
+ip route 0.0.0.0/0 10.10.0.1
+!
+line vty
+!
+
+
+/etc/vxsnd.conf
+===============
+[common]
+# Log level is one of DEBUG, INFO, WARNING, ERROR, CRITICAL
+#loglevel = INFO
+
+# Destination for log message.  Can be a file name, 'stdout', or 'syslog'
+#logdest = syslog
+
+# log file size in bytes. Used when logdest is a file
+#logfilesize = 512000
+
+# maximum number of log files stored on disk. Used when logdest is a file
+#logbackupcount = 14
+
+# The file to write the pid.
+#pidfile = /var/run/vxsnd.pid
+
+# The file name for the unix domain socket used for mgmt.
+#udsfile = /var/run/vxsnd.sock
+
+# UDP port for vxfld control messages
+#vxfld_port = 10001
+
+# This is the address to which registration daemons send control messages for
+# registration and/or BUM packets for replication
+#svcnode_ip = 0.0.0.0
+
+# Holdtime (in seconds) for soft state. It is used when sending a
+# register msg to peers in response to learning a <vni, addr> from a
+# VXLAN data pkt
+#holdtime = 90
+
+# Local IP address to bind to for receiving inter-vxsnd control traffic
+#src_ip = 0.0.0.0
+
+[vxsnd]
+# Space separated list of IP addresses of vxsnd to share state with
+#svcnode_peers =
+
+# When set to true, the service node will listen for vxlan data traffic
+# Note: Use 1, yes, true, or on, for True and 0, no, false, or off,
+# for False
+#enable_vxlan_listen = true
+
+# When set to true, the svcnode_ip will be installed on the loopback
+# interface, and it will be withdrawn when the vxsnd is no longer in
+# service.  If set to true, the svcnode_ip configuration
+# variable must be defined.
+# Note: Use 1, yes, true, or on, for True and 0, no, false, or off,
+# for False
+#install_svcnode_ip = false
+
+# Seconds to wait before checking the database to age out stale entries
+#age_check = 90
+
+/etc/hostapd.conf
+=======================
+#### Auto-generated config file: do not edit. ####
+eap_server=0
+ieee8021x=1
+driver=wired
+interfaces=
+mab_interfaces=
+parking_vlan_interfaces=
+parking_vlan_id=
+mab_activation_delay=30
+eap_reauth_period=0
+ctrl_interface=/var/run/hostapd
+nas_identifier=localhost
+auth_server_addr=
+auth_server_port=1812
+auth_server_shared_secret=
+acct_server_addr=
+acct_server_port=1813
+acct_server_shared_secret=
+
+
+/etc/ntp.conf
+=============
+# /etc/ntp.conf, configuration for ntpd; see ntp.conf(5) for help
+
+driftfile /var/lib/ntp/ntp.drift
+
+
+# Enable this if you want statistics to be logged.
+#statsdir /var/log/ntpstats/
+
+statistics loopstats peerstats clockstats
+filegen loopstats file loopstats type day enable
+filegen peerstats file peerstats type day enable
+filegen clockstats file clockstats type day enable
+
+
+# You do need to talk to an NTP server or two (or three).
+#server ntp.your-provider.example
+
+# pool.ntp.org maps to about 1000 low-stratum NTP servers.  Your server will
+# pick a different set every time it starts up.  Please consider joining the
+# pool: <http://www.pool.ntp.org/join.html>
+server 0.cumulusnetworks.pool.ntp.org iburst
+server 1.cumulusnetworks.pool.ntp.org iburst
+server 2.cumulusnetworks.pool.ntp.org iburst
+server 3.cumulusnetworks.pool.ntp.org iburst
+
+
+# Access control configuration; see /usr/share/doc/ntp-doc/html/accopt.html for
+# details.  The web page <http://support.ntp.org/bin/view/Support/AccessRestrictions>
+# might also be helpful.
+#
+# Note that "restrict" applies to both servers and clients, so a configuration
+# that might be intended to block requests from certain clients could also end
+# up blocking replies from your own upstream servers.
+
+# By default, exchange time with everybody, but don't allow configuration.
+restrict -4 default kod notrap nomodify nopeer noquery
+restrict -6 default kod notrap nomodify nopeer noquery
+
+# Local users may interrogate the ntp server more closely.
+restrict 127.0.0.1
+restrict ::1
+
+# Clients from this (example!) subnet have unlimited access, but only if
+# cryptographically authenticated.
+#restrict 192.168.123.0 mask 255.255.255.0 notrust
+
+
+# If you want to provide time to your local subnet, change the next line.
+# (Again, the address is an example only.)
+#broadcast 192.168.123.255
+
+# If you want to listen to time broadcasts on your local subnet, de-comment the
+# next lines.  Please do this only if you trust everybody on the network!
+#disable auth
+#broadcastclient
+
+# Specify interfaces, don't listen on switch ports
+interface listen eth0
+
+
+/etc/timezone
+=============
+Etc/UTC
+
+/etc/rsyslog.d/11-remotesyslog.conf
+===================================
+# This file was automatically generated by NCLU.
+
+/etc/resolv.conf
+================
+domain lab.cumulusnetworks.com
+search lab.cumulusnetworks.com
+nameserver 10.20.249.1
+
+/etc/snmp/snmpd.conf
+=======================
+#### Auto-generated config file: do not edit. ####
+agentAddress 127.0.0.1
+agentxperms 777 777 snmp snmp
+agentxsocket /var/agentx/master
+createUser _snmptrapusernameX
+iquerySecName _snmptrapusernameX
+master agentx
+monitor -r 60 -o laNames -o laErrMessage "laTable" laErrorFlag != 0
+pass -p 10 1.3.6.1.2.1.1.1 /usr/share/snmp/sysDescr_pass.py
+pass_persist 1.2.840.10006.300.43 /usr/share/snmp/ieee8023_lag_pp.py
+pass_persist 1.3.6.1.2.1.17 /usr/share/snmp/bridge_pp.py
+pass_persist 1.3.6.1.2.1.31.1.1.1.18 /usr/share/snmp/snmpifAlias_pp.py
+pass_persist 1.3.6.1.2.1.47 /usr/share/snmp/entity_pp.py
+pass_persist 1.3.6.1.2.1.99 /usr/share/snmp/entity_sensor_pp.py
+pass_persist 1.3.6.1.4.1.40310.1 /usr/share/snmp/resq_pp.py
+pass_persist 1.3.6.1.4.1.40310.2 /usr/share/snmp/cl_drop_cntrs_pp.py
+rouser _snmptrapusernameX
+sysObjectID 1.3.6.1.4.1.40310
+sysServices 72
+

@@ -1,0 +1,16 @@
+
+---
+
+- hosts: Banana
+  remote_user: cumulus
+  gather_facts: 'no'
+  become: 'yes'
+
+  vars:
+    ansible_become_pass: "Clouds123"
+
+  tasks:
+-  name: "Add 48 interfaces and commit the change"
+  nclu:
+     commands:
+       - add hostname sillyboy
