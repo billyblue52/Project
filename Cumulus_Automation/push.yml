@@ -17,6 +17,10 @@
       copy: src=backup/{{inventory_hostname}}/interfaces
             dest=/etc/network/
 
+    - name: copy hostnames
+      fetch: dest=backup/{{inventory_hostname}}/hosts
+             src=/etc/ flat=yes
+
     - name: copy interfaces_config
       copy: src=backup/{{inventory_hostname}}/interfaces_config
             dest=/etc/network/interfaces.d/
