@@ -16,3 +16,11 @@
       nclu:
         commit: yes
       # we commit in a separate stanza so we don't have to "per line" in the stanza above
+    - name: Check configuration is applied correctly
+      command: net show ospf database
+      register: OSPf_result
+    -
+      debug:
+        var: OSPf_result.stdout_lines
+      name: "Print OSPF response"
+
