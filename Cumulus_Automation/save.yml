@@ -1,5 +1,5 @@
 ---
-  
+
 - hosts: Banana
   remote_user: cumulus
   gather_facts: 'no'
@@ -12,6 +12,10 @@
     - name: fetch ports.conf
       fetch: dest=backup/{{inventory_hostname}}/ports.conf
              src=/etc/cumulus/ports.conf flat=yes
+
+    - name: fetch hostsnames
+      fetch: dest=backup/{{inventory_hostname}}/hosts
+             src=/etc/hosts flat=yes
 
     - name: fetch interfaces
       fetch: dest=backup/{{inventory_hostname}}/interfaces
