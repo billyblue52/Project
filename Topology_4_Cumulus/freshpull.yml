@@ -13,7 +13,7 @@
       # '| grep -v "del all"' removes the del all command from the beginning of the output, otherwise replay won't be idempotent
       
     - name: fetch the file and store it locally
-      fetch: dest=save_nclu/{{inventory_hostname}}_nclu src=/home/cumulus/{{inventory_hostname}}_nclu flat=yes
+      fetch: dest=save_nclu_running/{{inventory_hostname}}_nclu src=/home/cumulus/{{inventory_hostname}}_nclu flat=yes
       # This task grabs the output from the previous command and stores it as a flat-file locally on the machine running ansible
       
       #The next two stanzas are not required, but grabs the rendered config if you prefer them over NCLU (net) commands
@@ -23,5 +23,5 @@
       # This grabs all the rendered configurations (vs the net commands)
 
     - name: fetch the file and store it locally
-      fetch: dest=save_config_files/{{inventory_hostname}}_config_files src=/home/cumulus/{{inventory_hostname}}_config_files flat=yes
+      fetch: dest=save_config_files_running/{{inventory_hostname}}_config_files src=/home/cumulus/{{inventory_hostname}}_config_files flat=yes
       # This task grabs the rendered configuration from the previous command and stores it locally on the machine running ansible
