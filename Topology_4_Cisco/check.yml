@@ -1,0 +1,31 @@
+---
+-
+  connection: local
+  gather_facts: false
+  hosts: BlackCurrant
+  tasks:
+    -
+      ios_command:
+        commands:
+          - show running-config |  s hostname
+        waitfor:
+          - result[0] contains 'BlackCurrant'
+        host: "{{ ansible_ssh_host }}"
+        password: "{{ ansible_ssh_pass }}"
+        username: "{{ ansible_ssh_user }}"
+      name: "Check Hostname is correct"
+    -
+      ios_command:
+        commands:
+          - show running-config |  s interface GigabitEthernet2
+        waitfor:
+         - result[0] contains '172.16.10.5 255.255.255.0'
+        host: "{{ ansible_ssh_host }}"
+        password: "{{ ansible_ssh_pass }}"
+        username: "{{ ansible_ssh_user }}"
+      name: "Check GigabitEthernet2 has correct settings"
+      register: cisco_result
+    -
+      debug:
+        var: cisco_result.stdout_lines
+      name: "Print OSPF response"
