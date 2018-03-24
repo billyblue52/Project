@@ -7,18 +7,6 @@
     -
       ios_command:
         commands:
-          - show running-config |  s hostname
-        waitfor:
-          - result[0] contains 'BlackCurrant'
-        retries: 0
-        host: "{{ ansible_ssh_host }}"
-        password: "{{ ansible_ssh_pass }}"
-        username: "{{ ansible_ssh_user }}"
-      name: "Check Hostname is correct"
-      register: hostname_result
-    -
-      ios_command:
-        commands:
           - show running-config |  s interface GigabitEthernet2
         waitfor:
          - result[0] contains '172.16.10.5 255.255.255.0'
@@ -30,5 +18,5 @@
       register: interface2_result
     -
       debug:
-        var: hostname_result.stdout_lines
-      name: "Print Hostname response"
+        var: interface2_result.stdout_lines
+      name: "Print GigabitEthernet2 response"
