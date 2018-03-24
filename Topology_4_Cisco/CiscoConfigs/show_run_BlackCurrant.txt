@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 1700 bytes
+Current configuration : 1721 bytes
 !
-! Last configuration change at 16:16:05 UTC Sat Mar 24 2018 by bob
+! Last configuration change at 18:12:27 UTC Sat Mar 24 2018 by bob
 !
 version 16.3
 service timestamps debug datetime msec
@@ -133,6 +133,7 @@ no ip http server
 no ip http secure-server
 !
 ip route 0.0.0.0 0.0.0.0 10.10.0.1
+ip scp server enable
 !
 !
 !
