@@ -29,7 +29,6 @@
         lines:
           - description AREA0
           - ip address 172.16.1.3 255.255.255.0
-          - ip ospf priority 100
           - no shutdown
         parents: interface GigabitEthernet3
         password: "{{ ansible_ssh_pass }}"
@@ -42,7 +41,6 @@
           - router-id 3.3.3.3
           - network 172.16.1.0 0.0.0.255 area 0
           - network 172.16.10.0 0.0.0.255 area 1
-          - no shutdown
         parents: router ospf 1
         password: "{{ ansible_ssh_pass }}"
         username: "{{ ansible_ssh_user }}"
@@ -80,4 +78,3 @@
       debug:
         var: cisco_result.stdout_lines
       name: "Print OSPF response"
-
