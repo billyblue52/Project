@@ -1,0 +1,17 @@
+--- 
+- 
+  hosts: BlackCurrant
+  name: "Test NAPALM on IOS"
+  tasks:
+
+  -
+        napalm_install_config:
+        commit_changes: false
+        config_file: initial.conf
+        dev_os: ios
+        diff_file: initial.diff
+        host: "{{ ansible_ssh_host }}"
+        password: "{{ ansible_ssh_pass }}"
+        replace_config: true
+        username: "{{ ansible_ssh_user }}"
+
