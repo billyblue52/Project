@@ -1,24 +1,2 @@
-+router ospf 1
- +router-id 1.1.1.1
- +network 172.16.11.0 0.0.0.255 area 1
-+router bgp 100
- +bgp router-id 172.16.11.5
- +bgp log-neighbor-changes
- +network 172.16.11.5
- +neighbor 172.16.11.6 remote-as 100
-line vty 0
- +login
-line vty 1
- +login
-line vty 2 4
- +login
-interface GigabitEthernet2
- -shutdown
-line vty 0
- -login local
-line vty 1
- -login local
-line vty 2 4
- -login local
--line vty 5 15
- -login local
++hostname England
+-hostname new
