@@ -1,0 +1,30 @@
+---
+- hosts: BlackCurrant
+  gather_facts: false
+  connection: local
+
+  tasks:
+#   - name: show run 
+#     ios_command:
+#       commands:
+#         - show run   
+#     register: config
+
+#   - name: save output to /CiscoConfigs/ 
+#     copy: 
+#       content: "{{ config.stdout[0] }}"
+#       dest: "CiscoConfigs/show_run_{{ inventory_hostname }}.txt"
+   
+#   - name: check the running-config against master config
+#     ios_config:
+#       diff_config: intended
+#       intended_config: master.cfg
+
+
+
+
+    - name: check the startup-config against the running-config
+      ios_config:
+        diff_against: intended
+        intended_config: "{{ lookup('file', 'master.cfg') }}"
+        diff_ignore_lines:

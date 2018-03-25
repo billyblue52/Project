@@ -1,3 +1,3 @@
 ansible-playbook NAPALM.yml
-cat initial.diff
+cat initial.diff; echo
 
