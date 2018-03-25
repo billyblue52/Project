@@ -4,7 +4,7 @@
   hosts: England
   name: "England commit master"
   tasks:
-    - name: Commit master England and diff_file
+    - name: Commit base England and diff_file
       napalm_install_config:
             host: "{{ ansible_ssh_host }}"
             username: "{{ ansible_ssh_user }}"
