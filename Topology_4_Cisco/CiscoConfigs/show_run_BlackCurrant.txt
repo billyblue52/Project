@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 1721 bytes
+Current configuration : 1708 bytes
 !
-! Last configuration change at 18:12:27 UTC Sat Mar 24 2018 by bob
+! Last configuration change at 21:26:35 UTC Sun Mar 25 2018 by bob
 !
 version 16.3
 service timestamps debug datetime msec
@@ -59,6 +59,9 @@ multilink bundle-name authenticated
 !
 license udi pid CSR1000V sn 98UTMFFFA0A
 diagnostic bootup level minimal
+archive
+ path flash:archive
+ write-memory
 !
 spanning-tree extend system-id
 !
@@ -102,23 +105,19 @@ interface GigabitEthernet1
 interface GigabitEthernet2
  description AREA1
  ip address 172.16.10.5 255.255.255.0
- negotiation auto
- no mop enabled
- no mop sysid
+ speed 1000
+ no negotiation auto
 !
 interface GigabitEthernet3
  description AREA0
  ip address 172.16.1.3 255.255.255.0
- negotiation auto
- no mop enabled
- no mop sysid
+ speed 1000
+ no negotiation auto
 !
 interface GigabitEthernet4
  no ip address
- shutdown
- negotiation auto
- no mop enabled
- no mop sysid
+ speed 1000
+ no negotiation auto
 !
 router ospf 1
  router-id 3.3.3.3

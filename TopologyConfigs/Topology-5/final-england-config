@@ -27,7 +27,7 @@ no aaa new-model
 !
 !
 !
-!
+ip domain name England
 !
 !
 !
@@ -54,12 +54,15 @@ multilink bundle-name authenticated
 !
 !
 !
-license udi pid CSR1000V sn 92F0TR2PVK7
+license udi pid CSR1000V sn 96B5QHI2K5A
 diagnostic bootup level minimal
+archive
+ path flash:archive
+ write-memory
 !
 spanning-tree extend system-id
 !
-!
+username bob privilege 15 password 0 Clouds123
 !
 redundancy
 !
@@ -68,7 +71,6 @@ redundancy
 !
 !
 !
-! 
 !
 !
 !
@@ -81,12 +83,13 @@ redundancy
 !
 !
 !
-! 
-! 
-! 
-! 
-! 
-! 
+!
+!
+!
+!
+!
+!
+!
 !
 !
 interface GigabitEthernet1
@@ -125,6 +128,7 @@ no ip http server
 no ip http secure-server
 !
 ip route 0.0.0.0 0.0.0.0 10.10.0.1
+ip scp server enable
 !
 !
 !
