@@ -13,4 +13,3 @@
             config_file: base.conf
             commit_changes: True
             replace_config: True
-            diff_file: False

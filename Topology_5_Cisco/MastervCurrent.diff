@@ -1,19 +1,18 @@
-interface GigabitEthernet2
- +ip address 192.168.122.14 255.255.255.0
-interface GigabitEthernet3
- +ip address 192.168.122.14 255.255.255.0
++router ospf 1
+ +router-id 1.1.1.1
+ +network 172.16.11.0 0.0.0.255 area 1
++router bgp 100
+ +bgp router-id 172.16.11.5
+ +bgp log-neighbor-changes
+ +network 172.16.11.5
+ +neighbor 172.16.11.6 remote-as 100
 line vty 0
  +login
 line vty 1
  +login
 line vty 2 4
  +login
--ip domain name England
--username bob privilege 15 password 0 Clouds123
 interface GigabitEthernet2
- -no ip address
-interface GigabitEthernet3
- -no ip address
  -shutdown
 line vty 0
  -login local
