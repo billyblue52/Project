@@ -1,0 +1,17 @@
+net add interface eth0 ip address 10.10.0.60/24
+net del interface swp1
+net del interface swp2
+net add hostname Banana
+net add routing defaults datacenter
+net add routing service integrated-vtysh-config
+net add routing log syslog informational
+net add routing route 0.0.0.0/0 10.10.0.1
+net del ospf
+net add time zone Etc/UTC
+net add time ntp server 0.cumulusnetworks.pool.ntp.org iburst
+net add time ntp server 1.cumulusnetworks.pool.ntp.org iburst
+net add time ntp server 2.cumulusnetworks.pool.ntp.org iburst
+net add time ntp server 3.cumulusnetworks.pool.ntp.org iburst
+net add time ntp source eth0
+net add dns nameserver ipv4 10.20.249.1
+net add snmp-server listening-address localhost
