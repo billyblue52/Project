@@ -4,7 +4,7 @@
   hosts: England
   name: "England commit master"
   tasks:
-    - name: Reset to base
+    - name: Commit base England and diff_file
       napalm_install_config:
             host: "{{ ansible_ssh_host }}"
             username: "{{ ansible_ssh_user }}"
@@ -13,4 +13,4 @@
             config_file: base.conf
             commit_changes: True
             replace_config: True
-            diff_file: False
+            diff_file: basevcurrent.diff
