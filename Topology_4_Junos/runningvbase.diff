@@ -1,0 +1,36 @@
+[edit interfaces]
+-   ge-0/0/1 {
+-       mac 52:54:00:00:38:0a;
+-       unit 0 {
+-           description AREA0;
+-           family inet {
+-               address 172.16.1.2/24;
+-           }
+-       }
+-   }
+-   ge-0/0/2 {
+-       description Area51;
+-       mac 52:54:00:00:38:0e;
+-       unit 0 {
+-           family inet {
+-               address 172.16.51.2/24;
+-           }
+-       }
+-   }
+[edit routing-options]
+-  router-id 2.2.2.2;
+[edit]
+-  protocols {
+-      ospf {
+-          area 0.0.0.0 {
+-              area-range 172.16.1.0/24;
+-              interface ge-0/0/1.0 {
+-                  priority 200;
+-              }
+-          }
+-          area 0.0.0.51 {
+-              area-range 172.16.51.0/24;
+-              interface ge-0/0/2.0;
+-          }
+-      }
+-  }
