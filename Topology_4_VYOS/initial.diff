@@ -1,0 +1,32 @@
+[edit interfaces]
++ethernet eth2 {
++    address 192.168.122.6/24
++    duplex auto
++    hw-id 52:54:00:00:38:10
++    smp_affinity auto
++    speed auto
++}
++ethernet eth4 {
++    address 172.16.51.1/24
++    duplex auto
++    hw-id 52:54:00:00:38:0d
++    smp_affinity auto
++    speed auto
++}
++loopback lo {
++}
+[edit]
++protocols {
++    ospf {
++        area 51 {
++            area-type {
++            }
++            network 172.16.51.0/24
++        }
++        parameters {
++            abr-type cisco
++            router-id 1.1.1.1
++        }
++    }
++}
+[edit]

@@ -1,0 +1,28 @@
+---
+-
+  connection: local
+  hosts: Cardiff
+  name: "Napalm base fortigate"
+  tasks:
+    - name: Push Base + gen diff file commit change)
+      napalm_install_config:
+            host: "{{ ansible_ssh_host }}"
+            username: "{{ ansible_ssh_user }}"
+            password: "{{ ansible_ssh_pass }}"
+            dev_os: fortios
+            config_file: Base.conf
+            commit_changes: True
+            replace_config: True
+            diff_file: basevcurrent.diff
+
+
+
+     #commit_changes: false
+     #config_file: initial.conf
+     # dev_os: ios
+     # diff_file: initial.diff
+     # host: "{{ ansible_ssh_host }}"
+     # napalm_install_config: ~
+     # password: "{{ ansible_ssh_pass }}"
+     # replace_config: true
+     # username: "{{ ansible_ssh_user }}"

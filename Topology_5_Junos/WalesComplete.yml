@@ -1,0 +1,40 @@
+---
+-
+  connection: local
+  gather_facts: false
+  hosts: Wales
+  name: "Push Completed Config to Wales"
+  roles:
+    - Juniper.junos
+  tasks:
+    -
+      junos_install_config:
+        file: Wales.conf
+        host: "{{ ansible_ssh_host }}"
+        passwd: "{{ansible_ssh_pass}}"
+        user: "{{ ansible_ssh_user }}"
+      name: "Push to Wales"
+   # -
+    #  junos_command: 
+    #    commands: show interfaces terse
+    #    wait_for: result[0] contains 172.16.1.2/24
+        ##display: json
+        ##host: "{{ ansible_ssh_host }}"
+        ##passwd: "{{ansible_ssh_pass}}"
+        ##user: "{{ ansible_ssh_user }}"
+      ##register: junos_result 
+    #  name: "Show Interfaces"
+    -
+      junos_command:
+        commands: show bgp summary
+        wait_for: result[0] contains 100
+      ##  display: json
+      ##  host: "{{ ansible_ssh_host }}"
+      ##  passwd: "{{ansible_ssh_pass}}"
+      ##  user: "{{ ansible_ssh_user }}"
+      register: junos_result
+      name: "Check for BGP"
+    -
+      debug:
+        var: junos_result.stdout_lines
+      name: "Print BGP response"

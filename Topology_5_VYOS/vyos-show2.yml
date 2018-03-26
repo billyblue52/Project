@@ -1,0 +1,22 @@
+---
+-
+  connection: local
+  gather_facts: false
+  hosts: Ireland
+  name: "Push Completed Config to Ireland"
+  tasks:
+    -
+      name: "backup current configuration and load completed"
+      vyos_config:
+        backup: true
+        src: vyos.cfg
+    -
+      vyos_command:
+        commands:
+          - show ip bgp summary
+      name: "Check BGP database"
+      register: VyOS_result
+    -
+      debug:
+        var: VyOS_result.stdout_lines
+      name: "Print BGP response"

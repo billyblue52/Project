@@ -1,0 +1,11 @@
+---
+-
+  connection: local
+  gather_facts: false
+  hosts: Ireland
+  name: "Backup running Config on Ireland"
+  tasks:
+    -
+      name: "backup current configuration"
+      vyos_config:
+        backup: true
