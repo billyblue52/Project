@@ -1,0 +1,28 @@
+---
+-
+  connection: local
+  hosts: Blueberry
+  name: "reset to base Blueberry"
+  tasks:
+    - name: push base and gen .diff
+      napalm_install_config:
+            host: "{{ ansible_ssh_host }}"
+            username: "{{ ansible_ssh_user }}"
+            password: "{{ ansible_ssh_pass }}"
+            dev_os: junos
+            config_file: base.conf
+            commit_changes: True
+            replace_config: True
+            diff_file: runningvbase.diff
+
+
+
+     #commit_changes: false
+     #config_file: initial.conf
+     # dev_os: ios
+     # diff_file: initial.diff
+     # host: "{{ ansible_ssh_host }}"
+     # napalm_install_config: ~
+     # password: "{{ ansible_ssh_pass }}"
+     # replace_config: true
+     # username: "{{ ansible_ssh_user }}"
