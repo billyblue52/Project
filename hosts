@@ -62,3 +62,5 @@ Banana ansible_ssh_host=10.10.0.60 ansible_ssh_user=cumulus ansible_ssh_pass=Clo
 [Topology-5]
 
 England ansible_ssh_host=10.10.0.62 ansible_ssh_user=bob ansible_ssh_pass=Clouds123
+Cardiff ansible_ssh_host=10.10.0.67 ansible_ssh_user=admin ansible_ssh_pass=
+
