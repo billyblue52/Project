@@ -1,0 +1,51 @@
+[edit interfaces]
++ethernet eth2 {
++    address 172.16.12.6/24
++    duplex auto
++    smp_affinity auto
++    speed auto
++}
++ethernet eth3 {
++    address 192.168.11.3/25
++    duplex auto
++    smp_affinity auto
++    speed auto
++}
++ethernet eth4 {
++    address 192.168.122.20/24
++    duplex auto
++    hw-id 52:54:00:00:37:13
++    smp_affinity auto
++    speed auto
++}
+[edit interfaces ethernet eth5]
++hw-id 52:54:00:00:37:06
+[edit interfaces]
++loopback lo {
++}
+[edit]
++protocols {
++    bgp 100 {
++        neighbor 172.16.11.6 {
++            remote-as 100
++        }
++        network 172.16.12.6/32 {
++        }
++        network 192.168.11.0/25 {
++        }
++        parameters {
++            router-id 172.16.12.6
++        }
++    }
++    ospf {
++        area 2 {
++            network 172.16.12.0/24
++            network 192.168.11.0/25
++        }
++        parameters {
++            abr-type cisco
++            router-id 3.3.3.3
++        }
++    }
++}
+[edit]

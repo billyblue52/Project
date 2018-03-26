@@ -13,9 +13,7 @@
     -
       vyos_command:
         commands:
-          - show ip bgp Summary
-        wait_for:
-         - "result[0] contains '100'"
+          - show ip bgp summary
       name: "Check BGP database"
       register: VyOS_result
     -
