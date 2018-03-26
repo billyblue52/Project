@@ -2,8 +2,8 @@
 -
   connection: local
   gather_facts: false
-  hosts: Orange
-  name: "Backup running Config on Orange"
+  hosts: Ireland
+  name: "Backup running Config on Ireland"
   tasks:
     -
       name: "backup current configuration"

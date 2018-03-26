@@ -1,7 +1,7 @@
 ---
 -
   connection: local
-  hosts: Orange
+  hosts: Ireland
   name: "Test NAPALM on Vyos"
   tasks:
     - name: Gen .diff file discard change)

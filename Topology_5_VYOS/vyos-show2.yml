@@ -21,4 +21,4 @@
     -
       debug:
         var: VyOS_result.stdout_lines
-      name: "Print OSPF response"
+      name: "Print BGP response"
