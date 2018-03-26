@@ -1,0 +1,40 @@
+---
+-
+  connection: local
+  hosts: Cardiff
+  name: "Push Master Conf"
+  tasks:
+    - name: Push Base config
+      fortios_config:
+         host: "{{ ansible_ssh_host }}"
+         username: "{{ ansible_ssh_user }}"
+         password: "{{ ansible_ssh_pass }}"
+         src: Base.conf
+
+ #   - name: Gen .diff file discard change)
+  #    napalm_install_config:
+            #host: "{{ ansible_ssh_host }}"
+           # username: "{{ ansible_ssh_user }}"
+          #  password: "{{ ansible_ssh_pass }}"
+         #   dev_os: ios
+        #    config_file: initial.conf
+       #     commit_changes: False
+      #      replace_config: True
+     #       diff_file: initial.diff
+
+    # - name: Backup current config
+      # fortios_config:
+      #   - name: Backup current config
+     #  fortios_config:
+
+    #backup: yes
+
+     #commit_changes: false
+     #config_file: initial.conf
+     # dev_os: ios
+     # diff_file: initial.diff
+     # host: "{{ ansible_ssh_host }}"
+     # napalm_install_config: ~
+     # password: "{{ ansible_ssh_pass }}"
+     # replace_config: true
+     # username: "{{ ansible_ssh_user }}"

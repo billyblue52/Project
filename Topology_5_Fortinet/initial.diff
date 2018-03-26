@@ -1,0 +1,34 @@
+    config vpn certificate local
+        edit Fortinet_CA_SSL
+          set password ENC ENEzSytI2cWcfgzIkezYdGZTmzjo+DkqaYlOwDDQXuk8B1bLHqdldEXT8eoFUrXsPHg63+OrgwxesG52IalxEz6UjkJjxu5f36wFYcoc5MZHA80Myb6yqKO7ZgGu6TAbZynzlpdFoVPP47BOlPDQsVHBC2g4SYSazbn9mvIP4hwwhLBs9DGbsYcWYsLgsUGF/HtdzA==
+        next
+        edit Fortinet_CA_Untrusted
+          set password ENC 6/9nVIt/ag7Oxhd5MiLQQfxgXoDUfR38OA9yp56QwfjQA3igFoZr8Xe0H/HEZJM8nqcR3JL3hAz60WmrwXYX0s7IpYvGoDfiB799x53vk+HueGr5kPC5utZYZg3Egb9843VN8CfctmE52XqKJbRHdqWgZXlWcKjEQjb0yWdFHD3w+l+b9gMB0ywH6agHQiGj7NspMw==
+        next
+        edit Fortinet_SSL
+          set password ENC a3c4RiW9c4REBerhhRfPh0PQy0a6gxtLLB09aoZmp1IRijWXqG3mveBh7pZNpQ5BQxLVwW8WmeKikY+yLxNljjlCN7bVa2b/zZvJwJvGgEc1icxWcye738Tf7K91cPBt0rWjR8VWWdNjJgSlCFidSO4RY/rsMKVDiM+3acf/mch2ZuwDhCcB2KxZf2aNCXJoFdN7PA==
+        next
+        edit Fortinet_SSL_RSA1024
+          set password ENC gqToDOCiSK8a6oJ2SBBIy7ex0sV3KW8MR1VyhJZ+S1R2j/tXZw6wMmDF41LR2k17nx/RORlVo6Em6mBsr1yo7S39LOatMdn3h7OOL+h4VacKUy57++pD2eALBlyKAa6ZHcJx/SndPEmRrYNrGGuz5Shoflzhg++cIryU8CPl3KZC/+fe3SuBThnZ55j3LijcldTUsw==
+        next
+        edit Fortinet_SSL_RSA2048
+          set password ENC 9OYtfTYbnCBIZAlBx4Uos72YFHNS3FDTiQLqWgKQVoHNE/CNfJ6DiKLh03qM70EAX5W5APjm7jMhaUOjHb0WKvn1h9mECRWScmgWKICtrPhMTcHdW5VI7YwFKTuR+Tuol0IlqBktK77jKdhkfxAFUDujdq25dajnoMQXjm75g69kx6IDVnihQqV9ioIzmE2lPqzPEQ==
+        next
+        edit Fortinet_SSL_DSA1024
+          set password ENC Ba0J9qrrguEQZR8puADYqwIib4uy3/lguHtCb3/XXsixAlLqrcm3xsiee+rGcXvcwhpQOYICzYgk6MOteeqoEArINYDPS8HsRbUOHISR64FMUoGN6q7ZdrzSjViLau0mec+0SEIJDQgwlXjjVUK27/1lQf8pw5ZvkdcnTEON3m1oSLixrxiUAP/pjR80rRiDTQAovA==
+        next
+        edit Fortinet_SSL_DSA2048
+          set password ENC ybCIS77CpTWZ9WVPWE41ukGstOIKlx+5rx503Gq2DHo6OaZmEaMkrua2i3w5BpNaILTXdLmrOpc8Djed2nMNXMEPumejaswVTBC6ghWk8rYmtB0cMQNqVP+UmcS+rFNesAL/Fj/OvHqHUXU8Zi95oCK6beqCrmBOVEpWFIVU9ZkI+H9pf2D3I+fsIL6YxTJ9Ohuszw==
+        next
+        edit Fortinet_SSL_ECDSA256
+          set password ENC 3UJM1vd3g1JCpk2u9agVhtnJoYBwZSu/kUyDAnlDJe4Zh2x8rVuMTpPHvMPn5oBUgM5Ni2NgEUi9VrxIMEiJidYnW6ZybsVQwigNcdefayQ7CByAXMqu8KGzOjX5w4/OyB/NaPk9EEXD7Vrpq3kMGI3xPAMBUogVYvW7+gedGsMbpCNZuWZiCOAXJiU2JvAgkNhVww==
+        next
+        edit Fortinet_SSL_ECDSA384
+          set password ENC YLEuXdtLoZMmDB4BVOkyET6GW+L5XIosKkM4JBibmiZ5AjYJVrW+8Whufm57smHhPbOfPt14UZ+6rtaKkbpNmIumgFg3vb2yAjGjJM6cfGvm9+kK46AdsGuWX7U5+AMmlQkxgo6J2QzHMVXCaRPPVz6FVkJxo8h22mQlbukE1OsoTV1347pJSKNjU1HBZRgHW05oLg==
+        next
+    end
+    config user local
+        edit guest
+          set passwd ENC 0RJPqpToNgwt5YzJCfs7StbXWnaeFiSaSJEzgh7kb5+dZZ5JMeY5FkiLpX/sbIBNNm+wOIw5aZTZskEzlLZ5khokX/O4UGOIzRdTCOj6VyaZJwuEFD2azPXCvQfGhtXgUCqsglArBeixWQo5VMYrA2hvSEpp8Di6GABL7104KZtIUcnFnaRoZCcHNh4437Fs2L+BZw==
+        next
+    end
