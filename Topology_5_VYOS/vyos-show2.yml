@@ -2,8 +2,8 @@
 -
   connection: local
   gather_facts: false
-  hosts: Orange
-  name: "Push Completed Config to Orange"
+  hosts: Ireland
+  name: "Push Completed Config to Ireland"
   tasks:
     -
       name: "backup current configuration and load completed"
@@ -13,17 +13,10 @@
     -
       vyos_command:
         commands:
-          - show interfaces
+          - show ip bgp Summary
         wait_for:
-         - "result[0] contains '172.16.51.1'"
-      name: "Show Interfaces, check for 172.16.51.1"
-    -
-      vyos_command:
-        commands:
-          - show ip ospf database
-        wait_for:
-         - "result[0] contains '1.1.1.1'"
-      name: "Check OSPF database"
+         - "result[0] contains '100'"
+      name: "Check BGP database"
       register: VyOS_result
     -
       debug:
