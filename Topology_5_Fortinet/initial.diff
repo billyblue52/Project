@@ -1,3 +1,8 @@
+    config system interface
+        edit port2
+          set ip 172.16.13.6 255.255.255.0
+        next
+    end
     config vpn certificate local
         edit Fortinet_CA_SSL
           set password ENC ENEzSytI2cWcfgzIkezYdGZTmzjo+DkqaYlOwDDQXuk8B1bLHqdldEXT8eoFUrXsPHg63+OrgwxesG52IalxEz6UjkJjxu5f36wFYcoc5MZHA80Myb6yqKO7ZgGu6TAbZynzlpdFoVPP47BOlPDQsVHBC2g4SYSazbn9mvIP4hwwhLBs9DGbsYcWYsLgsUGF/HtdzA==
