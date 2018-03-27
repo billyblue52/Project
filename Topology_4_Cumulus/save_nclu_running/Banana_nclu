@@ -2,7 +2,7 @@ net add interface eth0 ip address 10.10.0.60/24
 net add interface swp1 ip address 172.16.10.6/24
 net add interface swp2 ip address 192.168.122.21/24
 net add loopback lo
-net add hostname Banana
+net add hostname Plym
 net add routing defaults datacenter
 net add routing service integrated-vtysh-config
 net add routing log syslog informational
