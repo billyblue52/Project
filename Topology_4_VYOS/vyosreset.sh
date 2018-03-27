@@ -1,2 +1,2 @@
-ansible-playbook vyosreset.yml
+ansible-playbook vyos-napalmreset.yml
 cat basevrunning.diff; echo
