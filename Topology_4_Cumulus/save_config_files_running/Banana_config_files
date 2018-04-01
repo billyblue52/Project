@@ -25,7 +25,7 @@ iface swp2
 
 /etc/hostname
 =============
-Plym
+Banana
 
 
 /etc/hosts
@@ -35,7 +35,7 @@ Plym
 ff02::1		ip6-allnodes
 ff02::2		ip6-allrouters
 
-127.0.1.1	Plym
+127.0.1.1	Banana
 
 
 /etc/dhcp/dhclient-exit-hooks.d/dhcp-sethostname
@@ -175,7 +175,6 @@ babeld=no
 frr version 3.2+cl3u3
 frr defaults datacenter
 hostname Banana
-hostname Plym
 username cumulus nopassword
 !
 service integrated-vtysh-config
