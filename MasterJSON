@@ -1,0 +1,188 @@
+## Last changed: 2018-04-02 17:54:16 UTC
+version 15.1X49-D100.6;
+system {
+    host-name Billys-OOB;
+    root-authentication {
+        encrypted-password "$5$c6k1K0v2$j7JXQbcDWTeOUda6wSDpH0aEE68kBtY2B1enEOmHld1"; ## SECRET-DATA
+    }
+    name-server {
+        8.8.8.8;
+    }
+    services {
+        ssh;
+        dhcp-local-server {
+            group g1 {
+                interface ge-0/0/1.0;
+            }
+        }
+        web-management {
+            http {
+                interface [ fxp0.0 ge-0/0/0.0 ];
+            }
+        }
+    }
+    syslog {
+        user * {
+            any emergency;
+        }
+        file messages {
+            any any;
+            authorization info;
+        }
+        file interactive-commands {
+            interactive-commands any;
+        }
+    }
+    license {
+        autoupdate {
+            url https://ae1.juniper.net/junos/key_retrieval;
+        }
+    }
+}
+security {
+    nat {
+        source {
+            rule-set INSIDE-OUTSIDE {
+                from zone Trust;
+                to zone Untrust;
+                rule INSIDE-OUTSIDE {
+                    match {
+                        source-address 0.0.0.0/0;
+                        destination-address 0.0.0.0/0;
+                    }
+                    then {
+                        source-nat {
+                            interface;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    policies {
+        from-zone Trust to-zone Untrust {
+            policy permit-all {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone Untrust to-zone Trust {
+            policy outbound {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone Trust to-zone Trust {
+            policy allow-all {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+        from-zone Untrust to-zone Untrust {
+            policy allow-all {
+                match {
+                    source-address any;
+                    destination-address any;
+                    application any;
+                }
+                then {
+                    permit;
+                }
+            }
+        }
+    }
+    zones {
+        security-zone Trust {
+            host-inbound-traffic {
+                system-services {
+                    all;
+                }
+                protocols {
+                    all;
+                }
+            }
+            interfaces {
+                ge-0/0/1.0;
+            }
+        }
+        security-zone Untrust {
+            host-inbound-traffic {
+                system-services {
+                    all;
+                }
+                protocols {
+                    all;
+                }
+            }
+            interfaces {
+                ge-0/0/0.0;
+            }
+        }
+    }
+}
+interfaces {
+    ge-0/0/0 {
+        unit 0 {
+            family inet {
+                address 192.168.0.161/24;
+            }
+        }
+    }
+    ge-0/0/1 {
+        unit 0 {
+            family inet {
+                address 10.10.0.1/24;
+            }
+        }
+    }
+}
+routing-options {
+    static {
+        route 0.0.0.0/0 next-hop 192.168.0.1;
+        inactive: route 10.10.0.20/32 next-hop 10.10.0.2;
+        inactive: route 10.10.0.25/32 next-hop 10.10.0.2;
+        inactive: route 10.10.0.26/32 next-hop 10.10.0.2;
+        inactive: route 10.10.0.27/32 next-hop 10.10.0.2;
+    }
+}
+access {
+    address-assignment {
+        pool p1 {
+            family inet {
+                network 10.10.0.0/24;
+                range r1 {
+                    low 10.10.0.150;
+                    high 10.10.0.254;
+                }
+                dhcp-attributes {
+                    maximum-lease-time 2419200;
+                    name-server {
+                        1.1.1.1;
+                    }
+                    router {
+                        10.10.0.1;
+                    }
+                }
+            }
+        }
+    }
+}
+
