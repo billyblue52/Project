@@ -1,0 +1,58 @@
+[edit interfaces ge-0/0/0]
+-   mac 52:54:00:00:39:04;
+[edit interfaces]
+-   ge-0/0/1 {
+-       mac 52:54:00:00:39:08;
+-       unit 0 {
+-           family inet {
+-               address 172.16.11.6/24;
+-           }
+-       }
+-   }
+-   ge-0/0/2 {
+-       mac 52:54:00:00:39:0b;
+-       unit 0 {
+-           family inet {
+-               address 172.16.12.5/24;
+-           }
+-       }
+-   }
+-   ge-0/0/3 {
+-       mac 52:54:00:00:39:0d;
+-       unit 0 {
+-           family inet {
+-               address 172.16.13.5/24;
+-           }
+-       }
+-   }
+[edit routing-options]
+-  router-id 2.2.2.2;
+-  autonomous-system 100;
+[edit]
+-  protocols {
+-      bgp {
+-          group internel {
+-              type internal;
+-              local-address 172.16.11.6;
+-              neighbor 172.16.11.5;
+-              neighbor 172.16.12.6;
+-              neighbor 172.16.13.6;
+-          }
+-      }
+-      ospf {
+-          area 0.0.0.1 {
+-              area-range 172.16.11.0/24;
+-              interface ge-0/0/1.0;
+-          }
+-          area 0.0.0.2 {
+-              area-range 172.16.12.0/24;
+-              area-range 192.168.11.0/25;
+-              interface ge-0/0/2.0;
+-          }
+-          area 0.0.0.0 {
+-              area-range 172.16.13.0/24;
+-              area-range 192.168.10.0/25;
+-              interface ge-0/0/3.0;
+-          }
+-      }
+-  }

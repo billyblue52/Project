@@ -1,0 +1,1 @@
+{"form": {"json": "%5B%5D", "instructions": "", "name": "Server Automation - Ifconfig", "description": "ifconfig"}, "template": {"action_provider": "ShellExecution", "action_provider_options": "{}", "description": "test", "template": "ifconfig", "type": "standalone", "name": "Server Automation"}}
