@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 1470 bytes
+Current configuration : 1662 bytes
 !
-! Last configuration change at 10:26:37 UTC Mon Apr 30 2018 by bob
+! Last configuration change at 13:28:09 UTC Wed May 9 2018 by bob
 !
 version 16.3
 service timestamps debug datetime msec
@@ -103,16 +103,23 @@ interface GigabitEthernet1
  no mop sysid
 !
 interface GigabitEthernet2
- no ip address
+ description AREA1
+ ip address 172.16.10.5 255.255.255.0
  negotiation auto
 !
 interface GigabitEthernet3
- no ip address
+ description AREA0
+ ip address 172.16.1.3 255.255.255.0
  negotiation auto
 !
 interface GigabitEthernet4
  no ip address
  negotiation auto
+!
+router ospf 1
+ router-id 3.3.3.3
+ network 172.16.1.0 0.0.0.255 area 0
+ network 172.16.10.0 0.0.0.255 area 1
 !
 !
 virtual-service csr_mgmt
