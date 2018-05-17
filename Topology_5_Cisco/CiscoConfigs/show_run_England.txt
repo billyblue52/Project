@@ -1,8 +1,8 @@
 Building configuration...
 
-Current configuration : 1707 bytes
+Current configuration : 1697 bytes
 !
-! Last configuration change at 13:06:19 UTC Tue Mar 27 2018 by bob
+! Last configuration change at 10:26:21 UTC Thu May 17 2018
 !
 version 16.3
 service timestamps debug datetime msec
@@ -10,7 +10,7 @@ service timestamps log datetime msec
 no platform punt-keepalive disable-kernel-core
 platform console virtual
 !
-hostname England
+hostname Test
 !
 boot-start-marker
 boot-end-marker
